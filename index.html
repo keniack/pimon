@@ -1,0 +1,65 @@
+<html>
+<head>
+  <title>Monitoring</title>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="60">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+table, td, th {
+border: 1px solid black;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td {
+    height: 50px;
+    vertical-align: bottom;
+}
+</style>
+</head>
+ <body>
+  <div class="container">
+  <h2>Monitoring</h2>
+  <table id='mytable' class="table">
+
+<tr>
+<th>server</th>
+<th>status</th>
+<th>last update</th>
+  </tr>
+  </table>
+  </div>
+<script>
+
+
+$(document).ready(function(){
+var url  = "http://localhost:5002/status";
+
+$.getJSON(url, function( data ) {
+    var obj = data['servers'];
+    for(var i=0;i<obj.length;i++)
+    {  
+	s = obj[i]["status"]
+	class_name="success"
+	if (s == "ERROR"){
+	    class_name="danger"
+	}
+
+       var tr  ="<tr class="+class_name +">" +
+                "<td>"+obj[i]["ip"]+"</td>"+
+                "<td>"+obj[i]["status"]+"</td>"+
+                "<td>"+obj[i]["last_update"]+"</td></tr>";
+       $("#mytable").append(tr);
+    }
+});
+}); 
+</script>
+</body>
+</html>
+
