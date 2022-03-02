@@ -43,7 +43,7 @@ def status_servers():
 @app.route('/')
 def root():
     root_dir = os.path.dirname(os.getcwd())
-    return send_from_directory(os.path.join(root_dir,'tumon'), 'index.html')
+    return send_from_directory(os.path.join(root_dir,'pimon'), 'index.html')
 
 
 if __name__ == '__main__':
